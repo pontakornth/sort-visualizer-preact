@@ -6,7 +6,7 @@ type BarSpec = {
     color?: string // Color of the index
 }
 
-type Algorithm = (arr: number[], pushQueue: (spec: BarSpec) => void) => void
+export type Algorithm = (arr: number[], pushQueue: (spec: BarSpec) => void) => void
 
 function useVisualizer  (canvasRef: HTMLCanvasElement) {
     // CTX will not be null
