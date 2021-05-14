@@ -11,8 +11,10 @@ export type Algorithm = (arr: number[], pushQueue: (spec: BarSpec) => void) => v
 function useVisualizer  (canvasRef: Ref<HTMLCanvasElement>) {
     // CTX will not be null
     const [ctx, setCtx] = useState<any>(null)
-    const [queue, setQueue] = useState<BarSpec[]>([])
-    const [timeoutQueue, setTimeoutQueue] = useState<number[]>([])
+    let queue: BarSpec[] = []
+    // const [queue, setQueue] = useState<BarSpec[]>([])
+    let timeoutQueue: number[] = []
+    // const [timeoutQueue, setTimeoutQueue] = useState<number[]>([])
     const [samepleLength, setSampleLength] = useState<number>(16)
 
     useEffect(() => {
@@ -20,7 +22,7 @@ function useVisualizer  (canvasRef: Ref<HTMLCanvasElement>) {
     }, [])
 
     function pushQueue (spec: BarSpec) {
-        setQueue(queue => [...queue, spec])
+        queue.push(spec)
     }
 
     function clearCanvas() {
@@ -30,8 +32,8 @@ function useVisualizer  (canvasRef: Ref<HTMLCanvasElement>) {
     function clearTimeoutQueue() {
         timeoutQueue.forEach(x => clearTimeout(x))
         clearCanvas()
-        setTimeoutQueue([])
-        setQueue([])
+        timeoutQueue = []
+        queue = []
     }
 
 
@@ -68,13 +70,13 @@ function useVisualizer  (canvasRef: Ref<HTMLCanvasElement>) {
         const arr = shuffle([...Array(samepleLength).keys()])
         algorithm(arr, pushQueue)
         drawSatisfication()
-
         pushQueue({arr: [...Array(samepleLength).keys()], colorIndexes: []})
 
         // Animate
         queue.forEach((v, i) => {
             const handle = setTimeout(() => drawBars(v), i * 40)
-            setTimeoutQueue(timeoutQueue => [...timeoutQueue, handle])
+            timeoutQueue.push(handle)
+            // setTimeoutQueue(timeoutQueue => [...timeoutQueue, handle])
         })
     }
 
