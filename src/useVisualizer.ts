@@ -1,4 +1,4 @@
-import { StateUpdater, useState } from "preact/hooks"
+import { StateUpdater, useEffect, useState, Ref } from "preact/hooks"
 import shuffle from "./shuffle"
 type BarSpec = {
     arr: number[], // Array to draw
@@ -8,19 +8,23 @@ type BarSpec = {
 
 export type Algorithm = (arr: number[], pushQueue: (spec: BarSpec) => void) => void
 
-function useVisualizer  (canvasRef: HTMLCanvasElement) {
+function useVisualizer  (canvasRef: Ref<HTMLCanvasElement>) {
     // CTX will not be null
-    const ctx = canvasRef.getContext("2d")!!
+    const [ctx, setCtx] = useState<any>(null)
     const [queue, setQueue] = useState<BarSpec[]>([])
     const [timeoutQueue, setTimeoutQueue] = useState<number[]>([])
     const [samepleLength, setSampleLength] = useState<number>(16)
+
+    useEffect(() => {
+        setCtx(canvasRef.current.getContext("2d"))
+    }, [])
 
     function pushQueue (spec: BarSpec) {
         setQueue(queue => [...queue, spec])
     }
 
     function clearCanvas() {
-        ctx.clearRect(0, 0, canvasRef.width, canvasRef.height);
+        ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     }
 
     function clearTimeoutQueue() {
@@ -34,7 +38,7 @@ function useVisualizer  (canvasRef: HTMLCanvasElement) {
     function drawBars(spec: BarSpec) {
         clearCanvas();
         ctx.fillStyle = spec.color || "green"
-        const rectangleWidth = canvasRef.width / spec.arr.length;
+        const rectangleWidth = canvasRef.current.width / spec.arr.length;
         for (let i = 0; i < spec.arr.length; i++) {
             const startX = rectangleWidth * i;
             const width = rectangleWidth;
@@ -72,6 +76,10 @@ function useVisualizer  (canvasRef: HTMLCanvasElement) {
             const handle = setTimeout(() => drawBars(v), i * 40)
             setTimeoutQueue(timeoutQueue => [...timeoutQueue, handle])
         })
+    }
+
+    return {
+        drawAlgorithm
     }
 
 }
