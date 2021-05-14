@@ -34,7 +34,7 @@ export function App() {
           <button onClick={draw(selectionSort)}>Selection Sort</button>
           <button onClick={draw(mergeSort)}>Merge Sort</button>
           <label for="length">Sample length</label>
-          <input type="number" name="length" value={samepleLength} onChange={handleChange}></input>
+          <input type="number" name="length" value={samepleLength} onChange={handleChange} min={16} max={32}></input>
       </div>
     </main>
     </>
