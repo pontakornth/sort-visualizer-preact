@@ -47,15 +47,23 @@ function useVisualizer  (canvasRef: HTMLCanvasElement) {
         }
     }
 
-    function drawSatisfication(setQueue: StateUpdater<BarSpec[]>) {
-        throw new Error("Function not implemented.")
+    function drawSatisfication() {
+        const sampleArray = [...Array(samepleLength).keys()]
+        for (let i = 0; i < sampleArray.length; i++) {
+            ctx.fillStyle = "yellow"
+           pushQueue({
+                arr: sampleArray,
+                colorIndexes: [...Array(i + 1).keys()],
+                color: "yellow"
+            })
+        }
     }
 
     function drawAlgorithm(algorithm: Algorithm) {
         clearTimeoutQueue()
         const arr = shuffle([...Array(samepleLength).keys()])
         algorithm(arr, pushQueue)
-        drawSatisfication(setQueue)
+        drawSatisfication()
 
         pushQueue({arr: [...Array(samepleLength).keys()], colorIndexes: []})
 
