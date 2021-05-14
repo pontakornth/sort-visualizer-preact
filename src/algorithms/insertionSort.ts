@@ -10,7 +10,6 @@ const insertionSort: Algorithm = (arr, pushQueue) => {
           colorIndexes: [prev, prev + 1]
       })
       arr[prev + 1] = arr[prev];
-      console.log([...arr]);
       prev -= 1;
     }
     pushQueue({
