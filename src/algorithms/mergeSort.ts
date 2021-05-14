@@ -20,7 +20,6 @@ function merge(arr: number[], start: number, mid: number, end: number, pushQueue
     tempArray = [...tempArray, ...left, ...right]
 
     for (let l = start; l <= end; l++) {
-        // console.log([...arr], l - start)
         arr[l] = tempArray[l - start]
         pushQueue({
             arr: [...arr],
@@ -34,9 +33,7 @@ const mergeSort: Algorithm = (arr, pushQueue) => {
         if (start < end) {
             let mid = Math.floor((start + end) / 2)
             mergeSortInner(arr, start, mid)
-            console.log(`Sort from ${start} to ${mid}`)
             mergeSortInner(arr, mid + 1, end)
-            console.log(`Sort from ${mid + 1} to ${end}`)
             merge(arr, start, mid, end, pushQueue)
         }
     }
@@ -45,7 +42,6 @@ const mergeSort: Algorithm = (arr, pushQueue) => {
         arr: [...arr],
         colorIndexes: []
     })
-    console.log(arr)
 }
 
 export default mergeSort
