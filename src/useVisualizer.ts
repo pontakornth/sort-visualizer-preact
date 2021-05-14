@@ -79,7 +79,9 @@ function useVisualizer  (canvasRef: Ref<HTMLCanvasElement>) {
     }
 
     return {
-        drawAlgorithm
+        drawAlgorithm,
+        samepleLength,
+        setSampleLength,
     }
 
 }
