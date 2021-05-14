@@ -4,7 +4,8 @@ import useVisualizer from './useVisualizer';
 import {
   bubbleSort,
   insertionSort,
-  selectionSort
+  selectionSort,
+  mergeSort,
 } from "./algorithms"
 import { JSX } from 'preact';
 
@@ -31,6 +32,7 @@ export function App() {
           <button onClick={draw(bubbleSort)}>Bubble Sort</button>
           <button onClick={draw(insertionSort)}>Insertion Sort</button>
           <button onClick={draw(selectionSort)}>Selection Sort</button>
+          <button onClick={draw(mergeSort)}>Merge Sort</button>
           <label for="length">Sample length</label>
           <input type="number" name="length" value={samepleLength} onChange={handleChange}></input>
       </div>
