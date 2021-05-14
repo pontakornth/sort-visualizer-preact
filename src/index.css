@@ -32,8 +32,16 @@ button {
   color: #fff;
   font-weight: bold;
   cursor: pointer;
+  min-width: 20%;
 }
 
 button:hover {
   background-color: #1f66e5;
 }
+
+.stack {
+  display: flex;
+  flex-flow: inherit;
+  align-items: center;
+}
+
