@@ -6,6 +6,7 @@ import {
   insertionSort,
   selectionSort,
   mergeSort,
+  quickSort,
 } from "./algorithms"
 import { JSX } from 'preact';
 
@@ -33,6 +34,7 @@ export function App() {
           <button onClick={draw(insertionSort)}>Insertion Sort</button>
           <button onClick={draw(selectionSort)}>Selection Sort</button>
           <button onClick={draw(mergeSort)}>Merge Sort</button>
+          <button onClick={draw(quickSort)}>Quick Sort</button>
           <label for="length">Sample length</label>
           <input type="number" name="length" value={samepleLength} onChange={handleChange} min={16} max={32}></input>
       </div>
